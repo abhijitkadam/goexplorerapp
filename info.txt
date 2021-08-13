@@ -1,0 +1,80 @@
+1. Module & GOPATH
+    Go to the directory where you want to create Module
+    
+        go mod init <moduleAppName>
+
+    To get where go path is:
+    go env GOPATH
+
+    Go installs are in:
+    $GOPATH/bin
+    https://golang.org/doc/gopath_code
+
+2. Run tests and benches
+
+    uses regex 
+        ^ => starts with
+        $ => ends with
+
+    $ go test .          # Run all tests in the current directory
+    $ go test ./...      # Run all tests in the current directory and sub-directories
+    $ go test ./foo/bar  # Run all tests in the ./foo/bar directory
+
+    go test -race ./...
+
+    $ go test -v -run=^TestFooBar$ .          # Run the test with the exact name TestFooBar
+    $ go test -v -run=^TestFoo .              # Run tests whose names start with TestFoo
+    $ go test -v -run=^TestFooBar$/^Baz$ .    # Run the Baz subtest of the TestFooBar test only
+
+    $ go test -bench=. ./...                        # Run all benchmarks and tests
+    $ go test -run=^$ -bench=. ./...                # Run all benchmarks (and no tests)
+    $ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # Run only the BenchmarkFoo benchmark (and no tests)
+
+    
+        
+    more info:
+        https://www.alexedwards.net/blog/an-overview-of-go-tooling#testing
+        https://www.alexedwards.net/blog/an-overview-of-go-tooling#running-and-comparing-benchmarks
+        https://pkg.go.dev/cmd/go#hdr-Testing_flags
+
+
+3. Static Analysis and format:
+    go fmt $(go list ./... | grep -v /vendor/)
+    go vet $(go list ./... | grep -v /vendor/)
+    staticcheck $(go list ./... | grep -v /vendor/)
+
+    notes:
+        grep -v /vendor will exclude the vendor directory
+        To install static check: https://staticcheck.io/docs/install
+
+
+4. Enums with const
+    type Level int16
+
+    const (
+        Bronze Level = iota + 1
+        Silver 
+        Gold
+    )
+
+    notes:
+        iota + 1 => so that we do not init default to Bronze as 0
+
+5. Collections:
+    arrays:
+    nums := []int32{2,4,64,9}
+    primes := [6]int{2, 3, 5, 7, 11, 13}
+
+    slices:
+    a[low : high]
+    including low and *exluding high
+
+    creating a slice with the underlying array:
+    b := make([]int, 0, 5) // len(b)=0, cap(b)=5
+
+
+
+
+
+
+
