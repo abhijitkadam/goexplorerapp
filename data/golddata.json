@@ -1,0 +1,28 @@
+{
+    "inventory":[
+        {
+          "source": "gold",
+          "name": "Hotel-AB44",
+          "room-type": "LARGE",
+          "price":"200"
+        },
+        {
+          "source": "gold",
+          "name": "Hotel-AC23",
+          "room-type": "X-LARGE",
+          "price":"300"
+        },
+        {
+          "source": "gold",
+          "name": "Hotel-44ER",
+          "room-type": "SMALL",
+          "price":"100"
+        },
+        {
+          "source": "gold",
+          "name": "Hotel-GL33",
+          "room-type": "SMALL",
+          "price":"85"
+        }
+      ]
+}
