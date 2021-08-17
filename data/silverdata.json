@@ -1,0 +1,28 @@
+{
+    "inventory":[
+        {
+          "source": "silver",
+          "name": "Hotel-12XY",
+          "room-type": "LARGE",
+          "price":"100"
+        },
+        {
+          "source": "silver",
+          "name": "Hotel-55XZ",
+          "room-type": "X-LARGE",
+          "price":"150"
+        },
+        {
+          "source": "silver",
+          "name": "Hotel-56FF",
+          "room-type": "SMALL",
+          "price":"70"
+        },
+        {
+          "source": "silver",
+          "name": "Hotel-23KL",
+          "room-type": "SMALL",
+          "price":"55"
+        }
+      ]
+}
