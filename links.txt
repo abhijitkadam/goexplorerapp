@@ -1,4 +1,4 @@
-
+Channels: https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html
 Main site: https://golang.org/
 Docs: https://golang.org/doc/
     
