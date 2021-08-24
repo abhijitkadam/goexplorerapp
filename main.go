@@ -10,7 +10,9 @@ import (
 func main() {
 	//ChannelBasics()
 	//ChannelWorkers()
-	SelectDemo()
+	//SelectDemo()
+
+	PipelineDemo()
 }
 
 //Channels are unbuffered & buffered
