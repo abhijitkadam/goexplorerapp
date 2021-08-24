@@ -9,7 +9,8 @@ import (
 //https://www.ardanlabs.com/blog/2014/02/the-nature-of-channels-in-go.html
 func main() {
 	//ChannelBasics()
-	ChannelWorkers()
+	//ChannelWorkers()
+	SelectDemo()
 }
 
 //Channels are unbuffered & buffered
