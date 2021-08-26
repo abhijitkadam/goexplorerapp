@@ -36,6 +36,7 @@
         https://www.alexedwards.net/blog/an-overview-of-go-tooling#testing
         https://www.alexedwards.net/blog/an-overview-of-go-tooling#running-and-comparing-benchmarks
         https://pkg.go.dev/cmd/go#hdr-Testing_flags
+        https://dave.cheney.net/2019/05/07/prefer-table-driven-tests
 
 
 3. Static Analysis and format:
