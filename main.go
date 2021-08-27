@@ -3,46 +3,35 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
+	"log"
+	"net/http"
 	"strings"
 
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
-//Built in flags package for input command line parsing
-//A external lib: https://github.com/spf13/cobra
-//https://pkg.go.dev/flag#example-Value
+func HomeHandler(rw http.ResponseWriter, r *http.Request) {
 
-//Configuration stuff: https://github.com/spf13/viper
-/*
-func main() {
-
-	//fmt.Println(os.Args)
-
-	server := flag.String("servers", "appserver", "name of the server")
-
-	//var servername string
-	//flag.StringVar(&servername, "servers", "appserver", "name of the server")
-
-	//port := flag.Int("port", 8080, "port on which server runs")
-
-	flag.Parse()
-	for _, v := range strings.Split(*server, ",") {
-		fmt.Println(v)
-	}
+	fmt.Fprintf(rw, "This is go server")
 }
-*/
-
-//https://github.com/spf13/viper
 
 func main() {
+	Config()
 
-	fmt.Println(os.Getenv("SERVER"))
+	http.HandleFunc("/home", HomeHandler)
+
+	fmt.Println("Starting server : ", viper.Get("SERVER"), " on port ", viper.GetInt("port"))
+
+	log.Fatal(http.ListenAndServe(":"+viper.GetString("port"), nil))
+
+}
+
+func Config() {
 
 	flag.String("server", "appserver", "name of the server")
 
-	flag.Int("port", 8080, "port on which server runs")
+	flag.String("port", "8080", "port on which server runs")
 
 	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
 	pflag.Parse()
@@ -53,26 +42,4 @@ func main() {
 	//the env vars needs to be caps
 	viper.AutomaticEnv()
 
-	fmt.Println("Starting server : ", viper.Get("SERVER"), " on port ", viper.GetInt("port"))
 }
-
-/*
-
-{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch Package",
-            "type": "go",
-            "request": "launch",
-            "mode": "auto",
-            "program": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
-        }
-    ]
-}
-
-*/
