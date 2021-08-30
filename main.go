@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -12,6 +11,14 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
+
+//Middleware
+func LoggerMiddleware(h http.HandlerFunc) http.HandlerFunc {
+	return func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Println("Requesting ", r.URL)
+		h(rw, r)
+	}
+}
 
 func HomeHandler(rw http.ResponseWriter, r *http.Request) {
 
@@ -23,52 +30,23 @@ type Customer struct {
 	Email string `json:"email"`
 }
 
+func JsonHandler(rw http.ResponseWriter, r *http.Request) {
+	var cust Customer
+	err := json.NewDecoder(r.Body).Decode(&cust)
+	if err != nil {
+		http.Error(rw, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println(cust)
+}
+
 func main() {
 	Config()
 
-	http.HandleFunc("/home", HomeHandler)
+	http.HandleFunc("/home", LoggerMiddleware(HomeHandler))
 
-	http.HandleFunc("/form", func(rw http.ResponseWriter, r *http.Request) {
-		fmt.Println("Method: ", r.Method)
-		fmt.Println("URL: ", r.URL)
-
-		//print query params:
-		//fmt.Println("Query param: ", r.URL.Query())
-		//get query param "choice"
-		//fmt.Println("Query param: ", r.URL.Query().Get("choice"))
-
-		r.ParseForm()
-		fmt.Println("Form data: ", r.Form)
-		fmt.Println("Skill: ", r.Form.Get("skills"))
-		fmt.Println("Skills: ", r.Form["skills"])
-
-		rw.WriteHeader(http.StatusAccepted)
-		fmt.Fprintf(rw, "Form accepted")
-
-	})
-
-	http.HandleFunc("/body", func(rw http.ResponseWriter, r *http.Request) {
-		bytes, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
-			return
-		}
-		defer r.Body.Close()
-		fmt.Print(r.Header)
-		fmt.Println(string(bytes))
-		fmt.Fprintf(rw, "ok")
-	})
-
-	http.HandleFunc("/json", func(rw http.ResponseWriter, r *http.Request) {
-		var cust Customer
-		err := json.NewDecoder(r.Body).Decode(&cust)
-		if err != nil {
-			http.Error(rw, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		fmt.Println(cust)
-	})
+	http.HandleFunc("/json", LoggerMiddleware(JsonHandler))
 
 	fmt.Println("Starting server : ", viper.Get("SERVER"), " on port ", viper.GetInt("port"))
 

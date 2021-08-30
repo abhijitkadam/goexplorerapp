@@ -1,5 +1,0 @@
-Write a http handler that takes a number and returns a sqaure value of that number
-Write unit tests for the function
-Do validations like if you input string then it should give error since you will be not be able to parse it
-For all the scenarious write table test cases
-You can write sub test cases using table test case method
