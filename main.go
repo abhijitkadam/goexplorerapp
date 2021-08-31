@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gorilla/mux"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -16,6 +17,14 @@ import (
 func LoggerMiddleware(h http.HandlerFunc) http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		fmt.Println("Requesting ", r.URL)
+
+		user := r.Context().Value("authuser")
+		if user != nil {
+			userName, ok := user.(string)
+			if ok {
+				fmt.Println("Authenticated & user is : ", userName)
+			}
+		}
 		h(rw, r)
 	}
 }
@@ -44,14 +53,70 @@ func JsonHandler(rw http.ResponseWriter, r *http.Request) {
 func main() {
 	Config()
 
-	http.HandleFunc("/home", LoggerMiddleware(HomeHandler))
+	store := NewHotelJsonFileRepo("data/golddata.json")
 
-	http.HandleFunc("/json", LoggerMiddleware(JsonHandler))
+	//http.HandleFunc("/home", LoggerMiddleware(HomeHandler))
+	//http.HandleFunc("/json", LoggerMiddleware(JsonHandler))
+
+	r := mux.NewRouter()
+
+	//without subrouting
+	//SetRoutes(r)
+
+	//Subrouter
+	hotelsRouter := r.PathPrefix("/hotels").Subrouter()
+	hotelsRouter.Use(MuxbasicAuthMiddleware, MuxloggingMiddleware)
+
+	productsRouter := r.PathPrefix("/products").Subrouter()
+	productsRouter.Use(MuxbasicAuthMiddleware, MuxloggingMiddleware)
+
+	SetHotelsRoutes(hotelsRouter, &store)
+	SetProductsRoutes(productsRouter)
+
+	r.HandleFunc("/home", LoggerMiddleware(HomeHandler))
+	r.HandleFunc("/json", LoggerMiddleware(JsonHandler))
+
+	http.Handle("/", r)
 
 	fmt.Println("Starting server : ", viper.Get("SERVER"), " on port ", viper.GetInt("port"))
 
 	log.Fatal(http.ListenAndServe(":"+viper.GetString("port"), nil))
 
+}
+
+func SetRoutes(r *mux.Router) {
+	r.HandleFunc("/hotels", LoggerMiddleware(func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(rw, "This is all the hotels data ...")
+	})).Methods("GET")
+
+	r.HandleFunc("/hotels/{code}", func(rw http.ResponseWriter, r *http.Request) {
+		code, ok := mux.Vars(r)["code"]
+		if !ok {
+			http.Error(rw, "bad request, provide proper code", http.StatusBadRequest)
+			return
+		}
+
+		fmt.Fprintf(rw, "This is data for hotel %s ...", code)
+	}).Methods("GET")
+
+	r.HandleFunc("/home", LoggerMiddleware(HomeHandler))
+	r.HandleFunc("/json", LoggerMiddleware(JsonHandler))
+}
+
+func SetProductsRoutes(productsRouter *mux.Router) {
+	productsRouter.HandleFunc("", func(rw http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(rw, "This is all the products data ...")
+	}).Methods("GET")
+
+	productsRouter.HandleFunc("/{id}", func(rw http.ResponseWriter, r *http.Request) {
+		id, ok := mux.Vars(r)["id"]
+		if !ok {
+			http.Error(rw, "bad request, provide proper code", http.StatusBadRequest)
+			return
+		}
+
+		fmt.Fprintf(rw, "This is data for product %s ...", id)
+	}).Methods("GET")
 }
 
 func Config() {

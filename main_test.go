@@ -1,16 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
+
+//Notes:
+//use reflect.DeepEqual for comparing whether things like maps are equal or not
 
 func TestHandler(t *testing.T) {
 	//setup
 	req := httptest.NewRequest("GET", "http://example.com/home", nil)
 	w := httptest.NewRecorder()
+	expected := "This is go server"
 
 	//Invoking the handler for testing
 	HomeHandler(w, req)
@@ -18,11 +23,15 @@ func TestHandler(t *testing.T) {
 	resp := w.Result()
 	body, _ := io.ReadAll(resp.Body)
 
-	fmt.Println(resp.StatusCode)
-	fmt.Println(resp.Header.Get("Content-Type"))
-	fmt.Println(string(body))
+	t.Log(resp.StatusCode)
+	t.Log(resp.Header.Get("Content-Type"))
+	t.Log(string(body))
 
-	if string(body) != "This is go server" {
-		t.Fatal("Failed not returning proper string")
-	}
+	t.Log(string(body))
+
+	// if string(body) != "This is go server" {
+	// 	t.Fatal("Failed not returning proper string")
+	// }
+
+	assert.Equal(t, string(body), expected, "Failed not returning proper string")
 }
