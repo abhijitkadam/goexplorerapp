@@ -60,14 +60,16 @@ func main() {
 
 	e := echo.New()
 
-	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+	usersGroup := e.Group("/users")
+
+	usersGroup.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			fmt.Println(c.Request().URL)
 			return next(c)
 		}
 	})
 
-	e.POST("/users", func(c echo.Context) (err error) {
+	usersGroup.POST("/", func(c echo.Context) (err error) {
 		u := new(User)
 		if err = c.Bind(u); err != nil {
 			return
@@ -76,7 +78,7 @@ func main() {
 		return c.JSON(http.StatusOK, u)
 	})
 
-	e.GET("/users", func(c echo.Context) (err error) {
+	usersGroup.GET("/", func(c echo.Context) (err error) {
 		u := new(User)
 		if err = c.Bind(u); err != nil {
 			return
@@ -85,7 +87,9 @@ func main() {
 		return c.JSON(http.StatusOK, u)
 	})
 
-	e.GET("/hotels/:id", func(c echo.Context) (err error) {
+	hotelsGroup := e.Group("/hotels")
+
+	hotelsGroup.GET("/:id", func(c echo.Context) (err error) {
 		//hc := new(HotelCode)
 		// if err = c.Bind(hc); err != nil {
 		// 	return
