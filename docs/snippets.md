@@ -72,18 +72,14 @@ note:
 ## select
 1. for time.After: https://pkg.go.dev/time#After
 ````
-var c chan int
 
-func handle(int) {}
+    select {
+    case out, ok := <-ch1:
+        // handle out
+    case <-time.After(1 * time.Second):
+        fmt.Println("timed out")
+    }
 
-func main() {
-	select {
-	case m := <-c:
-		handle(m)
-	case <-time.After(10 * time.Second):
-		fmt.Println("timed out")
-	}
-}
 ````
 
 2. for timeout context: https://pkg.go.dev/context#example-WithTimeout
