@@ -7,7 +7,10 @@
 - Higher order funcs and methods
 - Interfaces & composition
 - Channels and concurrency basics
-
+- Command parse and configuration
+- Http basics
+- Http Middlewares & routing
+- Http frameworks
 
 Intro:
     [
