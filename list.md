@@ -2,9 +2,9 @@
 - Variables, Pointers & Types in Go
 - Packages in go with examples inducing docs, tests and benchmarking
 - Go modules
-- Higher order funcs and methods
 - Closures
-- Json encoding
+- Json encoding & Httpclient
+- Higher order funcs and methods
 - Interfaces & composition
 - Channels and concurrency basics
 
