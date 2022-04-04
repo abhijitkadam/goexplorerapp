@@ -22,6 +22,8 @@ go env <br/>
 ## [Install go tools](https://pkg.go.dev/golang.org/x/tools#section-readme) <br/>
   `go install golang.org/x/tools/...@latest`
 
+Perf tools:
+  `go install golang.org/x/perf/cmd/...@latest`
 <hr/>
 
 #### A sample Debug configuration for VSCode

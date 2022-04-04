@@ -10,3 +10,10 @@ staticcheck $(go list ./... | grep -v /vendor/)
 Notes: <br/>
 `grep -v /vendor` will exclude the vendor directory
 To install static check: https://staticcheck.io/docs/install
+
+
+#### add vendoring
+go get package
+go mod vendor
+cd vendor
+git add .

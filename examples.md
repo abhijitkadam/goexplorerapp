@@ -4,12 +4,16 @@
    > go key word with sleep
    > runtime.GoProc 
    
+   > Generate thousands of worker go routines without any effort. 
+   Simulate work by time.Sleep
+   Collector routine that reads from channel
+   Use counter over channel to tally count. Each routine will signal the channel and collector will add one. Measure time
+
    > - Bank Balance example with 2 go routines. One adding 10. Another deducting 10. use sync.waitgroup. This will be incorrect
    > - Change runtime.GOMAXPROCS(1) to sync however single proc
    > - Revert MAX procs and then use sync Mutex to make it correct
    > - Use channel way to update balance
 
-   > Generate thousands of go routines without any effort. Use counter over channel to tally count. Each routine will signal the channel and collector will add one. Measure time
 
 ### 2. util: Doubler 
 > Double of uint8

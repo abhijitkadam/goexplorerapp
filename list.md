@@ -1,3 +1,14 @@
+- Introduction to Go Programming language
+- Variables, Pointers & Types in Go
+- Packages in go with examples inducing docs, tests and benchmarking
+- Go modules
+- Higher order funcs and methods
+- Closures
+- Json encoding
+- Interfaces & composition
+- Channels and concurrency basics
+
+
 Intro:
     [
         Intro slides

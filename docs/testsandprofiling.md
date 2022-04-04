@@ -53,6 +53,29 @@ go test -run=^$ -bench=^BenchmarkFoo$ ./...   # Run only the BenchmarkFoo benchm
 > go test -race ./...
 
 
+code example for setup and start/stop timer
+
+````
+func BenchmarkExpensive(b *testing.B) {
+        boringAndExpensiveSetup()
+        b.ResetTimer() 
+        for n := 0; n < b.N; n++ {
+                // function under test
+        }
+}
+````
+
+````
+func BenchmarkComplicated(b *testing.B) {
+        for n := 0; n < b.N; n++ {
+                b.StopTimer() 
+                complicatedSetup()
+                b.StartTimer() 
+                // function under test
+        }
+}
+````
+
 ## Bench stat
 https://pkg.go.dev/golang.org/x/perf/cmd/benchstat#section-readme
 
