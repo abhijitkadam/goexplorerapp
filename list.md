@@ -39,6 +39,7 @@ initialization & constructor
         binary operators
         encoding/binary package is there however not so 
     ]
+function values
 slices & maps
 fmt format options
 Linklist
