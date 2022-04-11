@@ -49,6 +49,8 @@ go test -v -run=^TestFooBar$/^Baz$ .    # Run the Baz subtest of the TestFooBar 
 go test -bench=. ./...                        # Run all benchmarks and tests
 go test -run=^$ -bench=. ./...                # Run all benchmarks (and no tests)
 go test -run=^$ -bench=^BenchmarkFoo$ ./...   # Run only the BenchmarkFoo benchmark (and no tests)
+
+ -benchmem option for mem allocations
 ````
 > go test -race ./...
 
@@ -89,6 +91,7 @@ If run with two input files, benchstat summarizes and compares:
 | links |
 | ----------- |
 |https://dave.cheney.net/2019/05/07/prefer-table-driven-tests|
+|https://dev.to/mcaci/introduction-to-benchmarks-in-go-3cii|
 |https://www.alexedwards.net/blog/an-overview-of-go-tooling#testing|
 |https://www.alexedwards.net/blog/an-overview-of-go-tooling#running-and-comparing-benchmarks|
 |https://pkg.go.dev/cmd/go#hdr-Testing_flags|

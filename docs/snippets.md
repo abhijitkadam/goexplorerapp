@@ -34,13 +34,13 @@ Mon Jan 2 15:04:05 MST 2006
 
 It is the numbers 1 2 3 4 5 6 7
 
-1: month (January, Jan, 01, etc)
-2: day
-3: hour (15 is 3pm on a 24 hour clock)
-4: minute
-5: second
-6: year (2006)
-7: timezone (GMT-7 is MST)
+1: month (January, Jan, 01, etc) <br/>
+2: day <br/>
+3: hour (15 is 3pm on a 24 hour clock) <br/>
+4: minute <br/>
+5: second <br/>
+6: year (2006) <br/>
+7: timezone (GMT-7 is MST) <br/>
 ## Collections:
 Arrays:
 ````

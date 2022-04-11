@@ -8,7 +8,7 @@
 
 <hr/>
 
-#### Some commands
+### Some commands
 
 go version <br/>
 echo $GOPATH <br/>
@@ -16,13 +16,14 @@ go env <br/>
 
 <hr/>
 
-#### *Put the GOPATH/bin in your system PATH*
+### *Put the GOPATH/bin in your system PATH*
+<br/>
 <hr/>
 
-## [Install go tools](https://pkg.go.dev/golang.org/x/tools#section-readme) <br/>
+### [Install go tools](https://pkg.go.dev/golang.org/x/tools#section-readme) <br/>
   `go install golang.org/x/tools/...@latest`
 
-Perf tools:
+Perf tools: <br/>
   `go install golang.org/x/perf/cmd/...@latest`
 <hr/>
 

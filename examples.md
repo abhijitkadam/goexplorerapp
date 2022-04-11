@@ -16,15 +16,23 @@
 
 
 ### 2. util: Doubler 
-> Double of uint8
-> Do with normal operator then binary
-> Should fail if input greater than half of MAX::uint8. 
-        `const MaxUint = ^uint8(0)` //^x is bitwise complement
-        or use `math.MaxUint`
-        `half is Max/2 ( i.e Max >> 1)`
+> Double of uint8 <br/>
+> Do with normal operator * 2 .Add printf that should be removed later <br/>
+> Include tests and bench <br/>
+> Include Docs <br/>
+> Then binary & remove print <br/>
+> do benchstat <br/>
+> Should fail if input greater than half of MAX::uint8. <br/>
+
+````
+        const MaxUint = ^uint8(0) //^x is bitwise complement
+        or 
+        use math.MaxUin
+
+        half is Max/2 ( i.e Max >> 1)
+````
 > Add guard for overflow and return error
-> Include tests and bench
-> Include Docs
+
 
 ### 3. Fibonnaci
 Fibonacci https://www.mathsisfun.com/numbers/fibonacci-sequence.html
@@ -104,3 +112,13 @@ Address:
 `
 ````
 
+
+
+### *url shortner*
+    url to unique number map in database (key value)
+    number to string
+    string to base64encode
+    when redirect, do reverse
+    base64 to string
+    string to number 
+    number lookup in db for long url and redirect
